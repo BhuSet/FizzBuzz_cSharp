@@ -35,21 +35,42 @@ namespace FizzBuzz_cSharp
             return output;
         }
 
+        static string ReverseRule(int num, string output)
+        {
+            if(num % 17 == 0)
+            {
+                var reverseOutput = "";
+                while(output.Length > 0)
+                {
+                    reverseOutput += output.Substring(output.Length-4);
+                    output = output.Substring(0, output.Length-4);
+                }
+                return reverseOutput;
+            }
+            return output;
+        }
+
         static void Main(string[] args)
         {
+            Console.WriteLine("Enter the Max Limit to be printed : ");
+            int maxNum = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter the Rule to apply : \n1. FizzBuzzFezz Rules only \n2. All Rules");
+            var RulestoApply = Convert.ToInt32(Console.ReadLine());
             
-            for(int i = 1; i <= 195; i++)
+            for(int i = 1; i <= maxNum; i++)
             {
                 var output = "";
 
                 output = FizzRule(i, output);
                 output = BuzzRule(i, output);
-                output = BangRule(i, output);
-                output = BongRule(i, output);
+                if(RulestoApply == 2)
+                {
+                    output = BangRule(i, output);
+                    output = BongRule(i, output);
+                }
                 output = FezzRule(i, output);
-                
-                //if(string.IsNullOrEmpty(output))
-                    //output += i;
+                output = ReverseRule(i, output);
                 
                 Console.WriteLine((output == "")? i : output);
             }
